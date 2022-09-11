@@ -1,0 +1,33 @@
+ ListNode* rotateRight(ListNode* head, int k) {
+ 
+ //here we sort those cases in which we just return the same head like if head is NULL and head->next is NULL or 
+ //there was an case in which we have k = 0 means just we have to return same head so those case is sorted in 
+ //two line 
+ 
+ 
+        if(head == NULL || head->next == NULL){
+            return head;
+        }
+        
+        
+//from the below loop we get the length of the string  --_ na;
+
+        ListNode* curr = head;
+        int len = 1; 
+        while(curr->next && ++len){
+            curr = curr->next;
+        }
+        
+        curr->next = head;
+        k = k%len;
+        k = len -k;
+        
+        while(k--)curr = curr->next;
+        head = curr->next;
+        curr->next = NULL;
+        
+        
+        return head;
+        
+    }
+};
