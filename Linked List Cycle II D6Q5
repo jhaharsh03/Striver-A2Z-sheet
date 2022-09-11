@@ -1,0 +1,8 @@
+ unordered_set<ListNode*> hashTable;
+            
+    while(head != NULL) {
+        if(hashTable.find(head) != hashTable.end()) return head;
+        hashTable.insert(head);
+        head = head->next;
+    }
+    return NULL;
