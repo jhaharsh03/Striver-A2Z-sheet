@@ -1,0 +1,17 @@
+//almost same method like we create a hash table and insert each node into it and at the same time before doing 
+this step we chech is this node visited in past or not by using the hash if else 
+
+here is the code of my solution 
+
+ bool hasCycle(ListNode *head) {
+        unordered_set<ListNode*> s;
+        while(head != NULL){
+            if(s.find(head) != s.end())return true;
+            s.insert(head);
+            head = head->next;
+        }
+        
+        return false;
+        
+    }
+};
