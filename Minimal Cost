@@ -1,0 +1,50 @@
+Q Link: https://practice.geeksforgeeks.org/problems/minimal-cost/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=minimal-cost
+
+Memoization:>
+
+class Solution {
+  public:
+    int dp[1000001];
+    
+    int helper(int n, vector<int>& height, int k){
+        if(n == 0)return 0; 
+        if(dp[n] != -1)return dp[n];
+        int minstep = INT_MAX; 
+        for(int i = 1; i<= k ; i++){
+            if(n-i >= 0){
+                int jump = helper(n-i, height, k) + abs(height[n] - height[n-i]);
+                minstep = min(minstep, jump);
+            }
+        }
+        return dp[n] = minstep;
+    }
+    
+    int minimizeCost(vector<int>& height, int n, int k) {
+        // Code here
+        memset(dp, -1, sizeof(dp));
+        return helper(n-1, height, k);
+    }
+};
+
+Tabular:>
+
+class Solution {
+  public:
+    int minimizeCost(vector<int>& height, int n, int k) {
+        // Code here
+        int dp[n+1]; 
+        dp[0] = 0; 
+        for(int i = 1; i< n ; i++){
+            int mini = INT_MAX; 
+            for(int j = 1; j<= k ; j++){
+                if(i-j >= 0){
+                int jump = dp[i-j] + abs(height[i] - height[i-j]);
+                mini = min(mini, jump);
+            }
+            }
+            dp[i] = mini;
+        }
+        return dp[n-1];
+    }
+};
+
