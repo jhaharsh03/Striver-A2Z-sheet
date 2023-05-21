@@ -1,0 +1,44 @@
+Q Link: https://practice.geeksforgeeks.org/problems/geek-jump/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=geek-jump
+
+Memoization:>
+class Solution {
+  public:
+    
+    int solve(int ind, vector<int> &dp, vector<int> &height){
+        if(ind == 0)return 0; 
+        if(dp[ind] != -1)return dp[ind];
+        int right = INT_MAX; 
+        int left = solve(ind-1, dp, height) + abs(height[ind] - height[ind-1]);
+        if(ind>1){
+            right = solve(ind-2, dp, height) + abs(height[ind] - height[ind-2]);
+        }
+        return dp[ind] = min(left, right);
+    }
+  
+  
+  
+  
+    int minimumEnergy(vector<int>& height, int n) {
+        // Code here
+        vector<int> dp(n, -1); 
+        return solve(n-1, dp, height);
+    }
+};
+
+Tabular:>
+
+class Solution {
+  public:
+    int minimumEnergy(vector<int>& height, int n) {
+        // Code here
+        vector<int> dp(n, -1);
+        dp[0] = 0; 
+        dp[1] = abs(height[0] - height[1]);
+        for(int i = 2; i<n ; i++){
+            int l = dp[i-1] + abs(height[i] - height[i-1]);
+            int r = dp[i-2] + abs(height[i] - height[i-2]);
+            dp[i] = min(l, r);
+        }
+        return dp[n-1];
+    }
+};
