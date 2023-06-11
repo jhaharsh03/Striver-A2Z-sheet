@@ -1,0 +1,24 @@
+Q Link: https://leetcode.com/problems/merge-intervals/description/
+
+class Solution {
+public:
+    vector<vector<int>> merge(vector<vector<int>>& iv) {
+        vector<vector<int>> res;
+        sort(iv.begin(), iv.end());
+        if(iv.size() == 0)
+        return res;
+        int n = iv.size();
+        res.push_back(iv[0]);
+        int j = 0; 
+        for(int i = 1; i< n ; i++){
+            if(res[j][1] >= iv[i][0]){
+                res[j][1] = max(res[j][1], iv[i][1]);
+            }
+            else{
+                res.push_back(iv[i]);
+                j++;
+            }
+        }
+        return res;
+    }
+};
