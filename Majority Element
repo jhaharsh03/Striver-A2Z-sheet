@@ -1,0 +1,25 @@
+Q Link : https://leetcode.com/problems/majority-element/submissions/968651077/
+
+class Solution {
+public:
+    int majorityElement(vector<int>& nums) {
+        if(nums.size() == 0){
+            return 0;
+        }
+        int count = 1, pre = nums[0], n = nums.size();
+        for(int i = 1; i< n; i++){
+            if(nums[i] == pre){
+                count++;
+            }
+            else{
+                count--;
+                if(count <= 0){
+                    pre = nums[i];
+                    count = 1;
+                }
+            }
+        }
+
+        return pre;
+    }
+};
