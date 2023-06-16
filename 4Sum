@@ -1,0 +1,46 @@
+Q Link: https://leetcode.com/problems/4sum/submissions/
+
+class Solution {
+public:
+    vector<vector<int>> fourSum(vector<int>& nums, int target){
+
+        vector<vector<int>> ans; 
+        set<vector<int>> res;
+        int n = nums.size();
+        sort(nums.begin(), nums.end());
+        if(n <= 3){
+            return ans;
+        }
+        for(int i = 0; i< n-1; i++){
+            for(int j = i+1; j<n-1 ; j++){
+                long long need = static_cast<long long>(target) - nums[i] - nums[j];
+
+                int s = j+1, e = n-1;
+                while(s<e){
+                    int sum = nums[s] + nums[e];
+                    if(sum < need){
+                        s++;
+                    }
+                    else if(sum > need){
+                        e--;
+                    }
+                    else{
+                        vector<int> sat; 
+                        sat.push_back(nums[i]);
+                        sat.push_back(nums[j]);
+                        sat.push_back(nums[s]);
+                        sat.push_back(nums[e]);
+                    ans.push_back(sat);
+                    while(s<e && nums[s] == sat[2])++s;
+                    while(s<e && nums[e] == sat[3])--e;
+                    }
+                }
+                while(j+1 < n && nums[j+1] == nums[j])++j;     
+            }
+           while(i+1 < n && nums[i+1] == nums[i])++i;
+        }
+
+        return ans;
+
+    }
+};
