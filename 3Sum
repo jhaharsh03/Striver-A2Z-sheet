@@ -1,0 +1,32 @@
+Q Link: https://leetcode.com/problems/3sum/description/
+
+class Solution {
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        int n = nums.size(); 
+        vector<vector<int>> res;
+        sort(nums.begin(), nums.end());
+        for(int i = 0; i<n; i++){
+            int tar = -nums[i];
+            int s = i+1, e = n-1;
+            while(s<e){
+                int curr = nums[s]+nums[e];
+                if(curr < tar){
+                    s++;
+                }
+                else if(curr > tar){
+                    e--;
+                }
+                else{
+                    vector<int> tri; 
+                    tri = {nums[i], nums[s], nums[e]};
+                    res.push_back(tri);
+                    while(s<e && nums[s] == tri[1])s++;
+                    while(s<e && nums[e] == tri[2])e--;
+                }
+            }
+            while(i+1<n && nums[i+1] == nums[i])i++;
+        }
+        return res;
+    }
+};
