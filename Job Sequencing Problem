@@ -1,0 +1,40 @@
+Q Link: https://practice.geeksforgeeks.org/problems/job-sequencing-problem-1587115620/1#
+
+class Solution 
+{
+    public:
+    static bool cmp(Job a, Job b){
+        return a.profit > b.profit;
+    }
+    //Function to find the maximum profit and the number of jobs done.
+    vector<int> JobScheduling(Job arr[], int n) 
+    { 
+        // your code here
+        sort(arr, arr+n, cmp);
+        int maxd = arr[0].dead; 
+        for(int i = 1; i< n ; i++){
+            maxd = max(maxd, arr[i].dead);
+        }
+        vector<int> sc(n+1, -1);
+        int count = 0; 
+        int maxprofit = 0; 
+        
+        for(int i = 0; i< n; i++){
+            int curri = arr[i].id;
+            int currd = arr[i].dead;
+            int currp = arr[i].profit;
+            
+            for(int k = currd ; k>0 ; k--){
+                if(sc[k] == -1){
+                    count++;
+                    sc[k] = curri;
+                    maxprofit += currp;
+                    break;
+                    
+                }
+            }
+        }
+        
+        return {count, maxprofit};
+    } 
+};
