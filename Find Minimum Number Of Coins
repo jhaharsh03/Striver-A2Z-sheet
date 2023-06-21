@@ -1,0 +1,21 @@
+Q Link: https://www.codingninjas.com/codestudio/problems/975277?topList=striver-sde-sheet-problems&utm_source=striver&utm_medium=website&leftPanelTab=1
+
+#include <bits/stdc++.h> 
+int findMinimumCoins(int amount) 
+{   // Write your code here
+    vector<int> coin = {1000, 500, 100, 50, 20, 10, 5, 2, 1};
+    int count = 0;
+    int i = 0;
+    while(amount){
+        if(coin[i]>amount){
+            i++;
+        }
+        else{
+            int n = amount/coin[i];
+            amount -= n*coin[i];
+            count += n;
+            i++;
+        }
+    }
+    return count;
+}
