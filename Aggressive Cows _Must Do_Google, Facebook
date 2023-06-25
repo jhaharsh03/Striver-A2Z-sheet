@@ -1,0 +1,36 @@
+Q Link: https://www.codingninjas.com/codestudio/problems/aggressive-cows_1082559?utm_source=striver&utm_medium=website&utm_campaign=codestudio_a_zcourse&leftPanelTab=1
+
+bool ispossible(vector<int> &stalls, int k, int mid) {
+    int count = 1;
+    int last = stalls[0];
+    for (int i = 1; i < stalls.size(); i++) { // Start from index 1
+        if (stalls[i] - last >= mid) {
+            count++;
+            if (count == k) {
+                return true;
+            }
+            last = stalls[i]; // Update the last stall position
+        }
+    }
+    return false;
+}
+
+int aggressiveCows(vector<int> &stalls, int k) {
+    int s = 0, maxi = -1, n = stalls.size();
+    for (int i = 0; i < n; i++) {
+        maxi = max(maxi, stalls[i]);
+    }
+    sort(stalls.begin(), stalls.end());
+    int e = maxi;
+    int mid, ans = -1;
+    while (s <= e) {
+        mid = s + (e - s) / 2;
+        if (ispossible(stalls, k, mid)) {
+            ans = mid;
+            s = mid + 1;
+        } else {
+            e = mid - 1;
+        }
+    }
+    return ans;
+}
