@@ -1,0 +1,32 @@
+Q Link: https://leetcode.com/problems/reverse-words-in-a-string/description/
+
+class Solution {
+public:
+    string reverseWords(string s) {
+
+        int i = 0; 
+        while (s[i] == ' '){
+            i++;
+        }
+        int n = s.size();
+        string ans;
+        while (i < n) {
+            string temp;
+            while (i < n && s[i] != ' ') {
+                temp += s[i];
+                i++;
+            }
+            reverse(temp.begin(), temp.end());
+            ans += temp + " ";
+            while (i < n && s[i] == ' ') {
+                i++;
+            }
+        }
+        if (!ans.empty()) {
+            ans.pop_back(); // Remove the extra space at the end
+        }
+        reverse(ans.begin(), ans.end());
+        return ans;
+        
+    }
+};
