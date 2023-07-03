@@ -1,0 +1,44 @@
+Q Link: https://www.codingninjas.com/studio/problems/981269?topList=striver-sde-sheet-problems&utm_source=striver&utm_medium=website&leftPanelTab=0
+
+void findInorder(BinaryTreeNode<int> *root, vector<int>& inorderArray){
+        if(root == NULL){
+            return;
+        }
+        findInorder(root->left, inorderArray);
+        inorderArray.push_back(root->data);
+        findInorder(root->right, inorderArray);
+    }
+void finpostorderr(BinaryTreeNode<int> *root, vector<int>& postorderrArray){
+        if(root == NULL){
+            return;
+        }
+        postorderrArray.push_back(root->data);
+        finpostorderr(root->left, postorderrArray);
+        finpostorderr(root->right, postorderrArray);
+    }
+void findpostorder(BinaryTreeNode<int> *root, vector<int>& postorderArray){
+        if(root == NULL){
+            return;
+        }
+        findpostorder(root->left, postorderArray);
+        findpostorder(root->right, postorderArray);
+        postorderArray.push_back(root->data);
+    }
+
+
+vector<vector<int>> getTreeTraversal(BinaryTreeNode<int> *root){
+    // Write your code here.
+    vector<vector<int>> res; 
+    vector<int> inorderArray;
+    findInorder(root, inorderArray);
+    vector<int> postorderrArray; 
+    finpostorderr(root, postorderrArray);
+    vector<int> postorderArray; 
+    findpostorder(root, postorderArray);
+    res.push_back(inorderArray);
+    res.push_back(postorderrArray);
+    res.push_back(postorderArray);
+
+    return res;
+
+}
