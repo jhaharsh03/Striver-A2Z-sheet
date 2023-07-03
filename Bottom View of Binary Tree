@@ -1,0 +1,28 @@
+Q Link: https://practice.geeksforgeeks.org/problems/bottom-view-of-binary-tree/1
+
+class Solution {
+  public:
+    vector <int> bottomView(Node *root) {
+        // Your Code Here
+        vector<int> bottomArray; 
+        if(root == NULL)return bottomArray;
+        map<int, int> lastnode;
+         queue<pair<Node*, int>> q;
+        q.push({root, 0});
+        while(!q.empty()){
+            int n = q.size(); 
+            for(int i = 0; i< n ; i++){
+                Node* curr = q.front().first; 
+                int hd = q.front().second; 
+                q.pop();
+                lastnode[hd] = curr->data; 
+                if(curr->left)q.push({curr->left, hd-1});
+                if(curr->right)q.push({curr->right, hd + 1});
+            }
+        }
+        for(auto t : lastnode){
+             bottomArray.push_back(t.second);
+        }
+         return bottomArray;
+    }
+};
