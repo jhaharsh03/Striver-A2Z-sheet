@@ -1,0 +1,22 @@
+Q Link: https://practice.geeksforgeeks.org/problems/left-view-of-binary-tree/1
+
+vector<int> leftView(Node *root)
+{
+   vector<int> leftArray;
+   if(root == NULL)return leftArray;
+   queue<Node*> q;
+   q.push(root);
+   while(!q.empty()){
+       int n = q.size(); 
+       for(int i = 0; i<n ; i++){
+           Node* curr = q.front(); 
+           q.pop();
+           if(i == 0){
+               leftArray.push_back(curr->data);
+           }
+           if(curr->left)q.push(curr->left);
+           if(curr->right)q.push(curr->right);
+       }
+   }
+   return leftArray;
+}
