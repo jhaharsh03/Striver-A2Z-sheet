@@ -1,0 +1,18 @@
+Q Link: https://leetcode.com/problems/binary-tree-postorder-traversal/submissions/
+
+class Solution {
+public:
+     void findpostorder(TreeNode* root, vector<int>& postorderArray){
+        if(root == NULL){
+            return;
+        }
+        findpostorder(root->left, postorderArray);
+        findpostorder(root->right, postorderArray);
+        postorderArray.push_back(root->val);
+    }
+    vector<int> postorderTraversal(TreeNode* root) {
+        vector<int> postorderArray; 
+        findpostorder(root, postorderArray);
+        return postorderArray;
+    }
+};
