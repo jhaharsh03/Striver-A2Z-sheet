@@ -1,0 +1,18 @@
+Q Link: https://leetcode.com/problems/balanced-binary-tree/description/
+
+class Solution {
+public:
+    int maxheight(TreeNode* root){
+        if(root == NULL){
+            return 0;
+        }
+        return 1 + max(maxheight(root->left), maxheight(root->right));
+    }
+    bool isBalanced(TreeNode* root) {
+        if(root == NULL)return true; 
+        int left = maxheight(root->left);
+        int right = maxheight(root->right);
+
+        return abs(left-right) <= 1 && isBalanced(root->left) && isBalanced(root->right);
+    }
+};
