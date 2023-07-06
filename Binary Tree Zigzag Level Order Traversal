@@ -1,0 +1,46 @@
+Q Link: https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/description/
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
+        vector<vector<int>> leveOrderMatrix; 
+        queue<TreeNode*> q; 
+        if(root == NULL){
+            return leveOrderMatrix;
+        }
+        q.push(root); 
+        int sortR = 0;
+        while(!q.empty()){
+            int storedInQueue = q.size(); 
+            vector<int> currLevel; 
+            for(int i = 0; i< storedInQueue; i++){
+                TreeNode* curr = q.front(); 
+                q.pop();
+                currLevel.push_back(curr->val);
+                if(curr->left != NULL)q.push(curr->left);
+                if(curr->right != NULL)q.push(curr->right);
+            }
+            if(sortR%2 == 0){
+                leveOrderMatrix.push_back(currLevel);
+            }
+            else{
+                reverse(currLevel.begin(), currLevel.end());
+                leveOrderMatrix.push_back(currLevel);
+            }
+            sortR++;
+        }
+        return leveOrderMatrix;
+
+    }
+};
