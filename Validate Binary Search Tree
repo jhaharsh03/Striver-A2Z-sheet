@@ -1,0 +1,16 @@
+Q Link: https://leetcode.com/problems/validate-binary-search-tree/description/
+
+class Solution {
+public:
+    bool solve(TreeNode* root, long maxRange, long minRange){
+        if(root == NULL)return true; 
+        if(root->val > minRange && root->val < maxRange){
+            return solve(root->left, root->val, minRange) && solve(root->right, maxRange, root->val);
+        }
+        return false;
+    }
+
+    bool isValidBST(TreeNode* root) {
+        return solve(root, LONG_MAX, LONG_MIN);
+    }
+};
