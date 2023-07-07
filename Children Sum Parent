@@ -1,0 +1,19 @@
+Q Link: https://practice.geeksforgeeks.org/problems/children-sum-parent/1?utm_source=gfg&utm_medium=article&utm_campaign=bottom_sticky_on_article
+
+class Solution{
+    public:
+    int isSumProperty(Node *root)
+    {
+     if(root == NULL || root->left == NULL && root->right == NULL){
+         return 1;
+     }
+     int sum = 0; 
+     if(root->left != NULL){
+         sum += root->left->data;
+     }
+     if(root->right != NULL){
+         sum += root->right->data;
+     }  
+     return (sum == root->data) && isSumProperty(root->left) && isSumProperty(root->right);
+    }
+};
