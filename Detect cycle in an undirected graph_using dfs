@@ -1,0 +1,35 @@
+Q Link: https://practice.geeksforgeeks.org/problems/detect-cycle-in-an-undirected-graph/1?utm_source=gfg&utm_medium=article&utm_campaign=bottom_sticky_on_article
+
+class Solution {
+  public:
+  bool dfs(int node, int parent, int vis[], vector<int> adj[]){
+      vis[node] = 1; 
+      for(auto t : adj[node]){
+          if(!vis[t]){
+              if(dfs(t, node, vis, adj) == true){
+                  return true;
+              }
+          }
+          else if(t != parent){
+              return true;
+          }
+      }
+      return false;
+  }
+  
+  
+    // Function to detect cycle in an undirected graph.
+    bool isCycle(int V, vector<int> adj[]) {
+        // Code here
+        int vis[V] = {0};
+        
+        for(int i = 0; i<V ; i++){
+            if(!vis[i]){
+               if(dfs(i, -1, vis, adj) == true){
+                   return true;
+               }
+            }
+        }
+        return false;
+    }
+};
