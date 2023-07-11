@@ -1,0 +1,42 @@
+Q Link: https://practice.geeksforgeeks.org/problems/prerequisite-tasks/1
+
+class Solution {
+public:
+	bool isPossible(int V,int P, vector<pair<int, int> >& pre) {
+	    // Code here
+	    vector<int> adj[V];
+	    for(auto t : pre){
+	        adj[t.first].push_back(t.second);
+	    }
+	    
+	    int ind[V] = {0};
+	    
+	    for(int i = 0; i< V ; i++){
+	        for(auto t : adj[i]){
+	            ind[t]++;
+	        }
+	    }
+	    queue<int> q;
+	    for(int i = 0; i< V ; i++){
+	        if(ind[i] == 0){
+	            q.push(i);
+	        }
+	    }
+	    vector<int> top; 
+	    while(!q.empty()){
+	        int node = q.front(); 
+	        q.pop(); 
+	        top.push_back(node);
+	        for(auto t : adj[node]){
+	            ind[t]--;
+	            if(ind[t] == 0){
+	                q.push(t);
+	            }
+	        }
+	    }
+	    if(top.size() == V)return true;
+	    return false;
+	    
+	}
+};
+
