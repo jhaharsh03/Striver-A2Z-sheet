@@ -1,0 +1,34 @@
+Q Link: https://practice.geeksforgeeks.org/problems/shortest-path-in-undirected-graph-having-unit-distance/1
+
+class Solution {
+  public:
+    vector<int> shortestPath(vector<vector<int>>& edges, int N,int M, int src){
+        // code here
+        vector<int> adj[N];
+        for(auto t : edges){
+            adj[t[0]].push_back(t[1]);
+            adj[t[1]].push_back(t[0]);
+        }
+        vector<int> dis(N);
+        for(int i = 0; i< N; i++)dis[i] = 1e9;
+        dis[src] = 0; 
+        queue<int> q; 
+        q.push(src);
+        while(!q.empty()){
+            int node = q.front(); 
+            q.pop();
+            for(auto t : adj[node]){
+                if(dis[node] + 1 < dis[t]){
+                    dis[t] = 1 + dis[node];
+                    q.push(t);
+                }
+            }
+        }
+        for(int i = 0 ; i< N ; i++){
+            if(dis[i] == 1e9){
+                dis[i] = -1;
+            }
+        }
+        return dis;
+    } 
+};
