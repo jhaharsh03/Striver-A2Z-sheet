@@ -1,0 +1,36 @@
+Q Link: https://practice.geeksforgeeks.org/problems/0-1-knapsack-problem0945/1
+
+int static dp[1002][1002];
+
+
+class Solution
+{
+    public:
+    //Function to return max value that can be put in knapsack of capacity W
+    
+    
+    int solve(int w, int wt[], int val[], int n) 
+    { 
+       // Your code here
+       if (w == 0 || n == 0)
+    return 0;
+       if(dp[n][w]!=-1) return dp[n][w];
+       if(wt[n-1]<=w){
+           return dp[n][w] = max(val[n-1]+solve(w-wt[n-1], wt, val, n-1),
+           solve(w, wt, val, n-1));
+       }
+       else{
+           return dp[n][w] = solve(w, wt, val, n-1);
+       }
+       
+       return dp[n][w];
+    }
+    
+    int knapSack(int w, int wt[], int val[], int n) 
+    { 
+       // Your code here
+        memset(dp, -1, sizeof(dp));
+        return solve(w,wt,val,n);
+       
+    }
+};
