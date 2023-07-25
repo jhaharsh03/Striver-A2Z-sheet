@@ -1,0 +1,21 @@
+Q Link: https://www.codingninjas.com/studio/problems/minimal-cost_8180930?utm_source=striver&utm_medium=website&utm_campaign=a_zcoursetuf&leftPanelTab=0
+
+int solve(int i, vector<int>& height, vector<int>& dp, int k){
+    if(i == 0)return 0; 
+    if(dp[i] != -1)return dp[i];
+    int ans = INT_MAX; 
+    for(int j = 1; j<=k ; j++){
+        if(i-j >= 0){
+            ans = min(ans, abs(height[i]-height[i-j]) + solve(i-j, height, dp, k));
+        }
+    }
+    return dp[i] = ans;
+}
+
+
+int minimizeCost(int n, int k, vector<int> &height){
+    // Write your code here.
+    if(n == 1)return 0; 
+    vector<int> dp(n+1, -1);
+    return solve(n-1, height, dp, k);
+}
