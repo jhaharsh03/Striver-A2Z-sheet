@@ -1,0 +1,19 @@
+Q Link: https://www.codingninjas.com/studio/problems/maximum-sum-of-non-adjacent-elements_843261?utm_source=striver&utm_medium=website&utm_campaign=a_zcoursetuf&leftPanelTab=0
+
+#include <bits/stdc++.h> 
+
+int solve(int i, vector<int>& nums, vector<int>& dp){
+    if(i >= nums.size())return 0; 
+    if(dp[i] != -1)return dp[i];
+    int take = nums[i] + solve(i+2, nums, dp);
+    int nottake = solve(i+1, nums, dp);
+    return dp[i] = max(take, nottake);
+}
+
+
+int maximumNonAdjacentSum(vector<int> &nums){
+    // Write your code here.
+    int i = 0, n = nums.size(); 
+    vector<int> dp(n+1, -1);
+    return solve(0, nums, dp);
+}
