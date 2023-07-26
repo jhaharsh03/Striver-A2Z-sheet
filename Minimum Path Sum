@@ -1,0 +1,27 @@
+Q Link: https://www.codingninjas.com/studio/problems/minimum-path-sum_985349?utm_source=striver&utm_medium=website&utm_campaign=a_zcoursetuf&leftPanelTab=0
+
+#include <bits/stdc++.h> 
+
+int solve(vector<vector<int>>& dp, int i, int j, vector<vector<int>>& grid){
+    if (i == 0 && j == 0) {
+        return grid[0][0];
+    }
+    if (i < 0 || j < 0){
+    return 1e9;
+    }
+           
+    if (dp[i][j] != -1)
+        return dp[i][j];
+    int left = grid[i][j] + solve(dp, i, j-1, grid);
+    int top = grid[i][j] + solve(dp, i-1, j, grid);
+    return dp[i][j] = min(left , top);
+}
+
+
+int minSumPath(vector<vector<int>> &grid) {
+    // Write your code here.
+    int n = grid.size(); 
+    int m = grid[0].size(); 
+    vector<vector<int>> dp(n, vector<int>(m, -1));
+    return solve(dp, n-1, m-1, grid);
+}
