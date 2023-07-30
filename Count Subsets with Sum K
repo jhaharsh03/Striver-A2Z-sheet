@@ -1,0 +1,27 @@
+Q Link: https://www.codingninjas.com/studio/problems/count-subsets-with-sum-k_3952532?utm_source=striver&utm_medium=website&utm_campaign=a_zcoursetuf&leftPanelTab=0
+
+
+const int mod = 1e9 + 7;
+
+
+int solve(int ind, int target, vector<int>& arr, vector<vector<int>>& dp) {
+    if (target == 0) return 1; 
+    if (ind < 0) return 0;
+    if (dp[ind][target] != -1) return dp[ind][target];
+    
+    int nottake = solve(ind - 1, target, arr, dp);
+    int take = 0;
+    if (arr[ind] <= target) {
+        take = solve(ind - 1, target - arr[ind], arr, dp);
+    }
+    
+    return dp[ind][target] = (take%mod + nottake%mod)%mod;
+}
+
+int findWays(vector<int>& arr, int k)
+{
+	// Write your code here.
+	int n = arr.size();
+	vector<vector<int>> dp(n,vector<int> (k+1, -1));
+    return solve(n-1, k, arr, dp);
+}
