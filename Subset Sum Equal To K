@@ -1,0 +1,20 @@
+Q Link: https://www.codingninjas.com/studio/problems/subset-sum-equal-to-k_1550954?utm_source=striver&utm_medium=website&utm_campaign=a_zcoursetuf&leftPanelTab=0
+
+#include <bits/stdc++.h> 
+bool solve(int ind, int target, vector<int>& arr, vector<vector<int>> &dp){
+    if(target == 0)return 1; 
+    if(ind == 0)return (arr[0] == target);
+    if(dp[ind][target] != -1)return dp[ind][target];
+    bool nottake = solve(ind-1, target, arr, dp);
+    bool take = false; 
+    if(arr[ind] <= target) take = solve(ind-1, target-arr[ind], arr, dp);
+    return dp[ind][target] = take || nottake;
+}
+
+
+
+bool subsetSumToK(int n, int k, vector<int> &arr) {
+    // Write your code here.
+    vector<vector<int>> dp(n,vector<int> (k+1, -1));
+    return solve(n-1, k, arr, dp);
+}
