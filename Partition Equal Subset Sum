@@ -1,0 +1,29 @@
+Q Link: https://www.codingninjas.com/studio/problems/partition-equal-subset-sum-_892980?utm_source=striver&utm_medium=website&utm_campaign=a_zcoursetuf&leftPanelTab=0
+
+
+bool solve(int i,vector<int> &arr, int target, vector<vector<int>> &dp){
+	if(target == 0)return 1; 
+	if(i == 0)return (target == arr[0]);
+	if(dp[i][target] != -1)return dp[i][target];
+	bool nottake = solve(i-1, arr, target, dp);
+	bool take = false; 
+	if(arr[i]<=target){
+		take = solve(i-1, arr, target-arr[i], dp);
+	}
+	return dp[i][target] = take || nottake;
+}
+
+
+
+bool canPartition(vector<int> &arr, int n)
+{
+	// Write your code here.
+	int sum = 0; 
+	for(auto t : arr){
+		sum += t;
+	}
+	if(sum%2 != 0)return false; 
+	sum = sum/2;
+	vector<vector<int>> dp(n, vector<int> (sum+1, -1));
+	return solve(n-1, arr, sum, dp);
+}
