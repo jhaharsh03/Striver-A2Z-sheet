@@ -1,0 +1,28 @@
+Q Link: https://www.codingninjas.com/studio/problems/0-1-knapsack_920542?utm_source=striver&utm_medium=website&utm_campaign=a_zcoursetuf&leftPanelTab=0
+
+
+#include <bits/stdc++.h> 
+int solve(vector<int> wt, vector<int> val, int ind, int W, vector<vector<int>> &dp){
+	if(ind == 0){
+		if(wt[0]<=W)return val[0];
+		else return 0;
+	}
+
+	if(dp[ind][W] != -1)return dp[ind][W];
+
+	int nottake = solve(wt, val, ind-1, W, dp);
+	int take = INT_MIN; 
+	if(wt[ind]<=W){
+		take = val[ind] + solve(wt, val, ind-1, W-wt[ind], dp);
+	}
+	return dp[ind][W] = max(nottake, take);
+
+}
+
+
+int knapsack(vector<int> wt, vector<int> val, int n, int maxWeight) 
+{
+	// Write your code here
+	vector<vector<int>> dp(n, vector<int>(maxWeight+1, -1));
+	return solve(wt, val, n-1, maxWeight, dp);
+}
